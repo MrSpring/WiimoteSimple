@@ -17,15 +17,30 @@
     along with Wiimote Simple.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package ubc.cs.wiimote;
+package ca.ubc.cs.wiimote.event;
+
+import ca.ubc.cs.wiimote.Wiimote;
 
 /**
- * Implement this interface to be notified of Wiimotes that are connected to. Register your
- * listener with an instance of WiimoteDiscoverer.
+ * Represents an occurrence of a wiimote acceleration event.
  */
-public interface WiimoteDiscoveryListener {
-	/**
-	 * Is called by a WiimoteDiscoverer when a Wiimote has been found and successfully connected to.
-	 */
-	public void wiimoteDiscovered(Wiimote wiimote);
+public class WiiAccelerateEvent extends WiiEvent
+{
+    /**
+     * Store the magnitudes of the acceleration values in the three axes.
+     */
+    public double x, y, z;
+    public EventSource source;
+    public WiiAccelerateEvent(Wiimote s, double x, double y, double z)
+    {
+        super(s);
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public enum EventSource
+    {
+        WII_REMOTE, NUNCHUK
+    }
 }

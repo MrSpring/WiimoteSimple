@@ -17,25 +17,21 @@
     along with Wiimote Simple.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package ubc.cs.wiimote.event;
+package ca.ubc.cs.wiimote.event;
+
+import ca.ubc.cs.wiimote.Wiimote;
 
 /**
- * Implement this and register with a Wiimote instance in order to receive updates from
- * the wiimotes.
+ * Base class for all wiimote event classes.
  */
-public interface WiimoteListener {
+public class WiiEvent {
+	protected Wiimote wiimote;
 	
-	public void wiiButtonPress(WiiButtonEvent e);
-
-	public void wiiButtonRelease(WiiButtonEvent e);
-
-	///Is called to notify the listener of IR events. Is called continuously as long as at least one IR source is visible to the wiimote.
-	public void wiiIRInput(WiiIREvent e);
+	protected WiiEvent(Wiimote w) {
+		wiimote = w;
+	}
 	
-	///Is called to notify the listener of acceleration events. Is called continuously.
-	public void wiiAccelInput(WiiAccelerateEvent e);
-
-	public void wiiNunchukAccelInput(WiiAccelerateEvent e);
-	
-	public void wiiNunchukJoystickInput(WiiNunchukJoystickEvent e);
+	public Wiimote getWiimote() {
+		return wiimote;
+	}
 }

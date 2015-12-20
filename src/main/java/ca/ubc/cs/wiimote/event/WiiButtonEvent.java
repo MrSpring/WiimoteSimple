@@ -17,21 +17,41 @@
     along with Wiimote Simple.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package ubc.cs.wiimote.event;
+package ca.ubc.cs.wiimote.event;
 
-import ubc.cs.wiimote.Wiimote;
+import ca.ubc.cs.wiimote.Wiimote;
 
 /**
- * Base class for all wiimote event classes.
+ * Represents a wii button event. Not that not all buttons have been implemented (only A, B, 1 and 2).
  */
-public class WiiEvent {
-	protected Wiimote wiimote;
-	
-	protected WiiEvent(Wiimote w) {
-		wiimote = w;
-	}
-	
-	public Wiimote getWiimote() {
-		return wiimote;
-	}
+public class WiiButtonEvent extends WiiEvent
+{
+    protected Button button;
+    protected boolean pressedEvent;
+    public WiiButtonEvent(Wiimote w, Button b, boolean pE)
+    {
+        super(w);
+        button = b;
+        pressedEvent = pE;
+    }
+
+    public Button getButton()
+    {
+        return button;
+    }
+
+    public boolean getWasPress()
+    {
+        return pressedEvent;
+    }
+
+    public String toString()
+    {
+        return new String("WiiButtonEvent");
+    }
+
+    public enum Button
+    {
+        B_A, B_B, B_1, B_2, B_C, B_Z
+    }
 }

@@ -18,9 +18,9 @@
     along with Wiimote Simple.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package ubc.cs.wiimote;
+package ca.ubc.cs.wiimote;
 
-import ubc.cs.wiimote.event.*;
+import ca.ubc.cs.wiimote.event.*;
 
 import javax.bluetooth.L2CAPConnection;
 import javax.microedition.io.Connector;
@@ -35,30 +35,25 @@ import java.util.LinkedList;
  */
 public class Wiimote
 {
-    String address;
-
     final public static double FOV_Y = 31.0;
     final public static double FOV_X = 41.0;
-
-    protected LinkedList<WiimoteListener> listeners;
-
-    protected L2CAPConnection sendCon;
-    protected L2CAPConnection receiveCon;
-    boolean connectionOpen;
-    protected int light;
-    protected Wiimote wiimote;
-    protected WiiButtonEvent lastButtonEvent;
-
     final protected static byte COMMAND_LIGHT = 0x11;
     final protected static byte COMMAND_IR = 0x13;
     final protected static byte COMMAND_IR_2 = 0x1a;
     final protected static byte COMMAND_REGISTER = 0x16;
     final protected static byte COMMAND_REPORTING = 0x12;
     final protected static byte COMMAND_READ_CALIBRATION = 0x17;
-
+    static Object gate = new Object();
+    protected LinkedList<WiimoteListener> listeners;
+    protected L2CAPConnection sendCon;
+    protected L2CAPConnection receiveCon;
+    protected int light;
+    protected Wiimote wiimote;
+    protected WiiButtonEvent lastButtonEvent;
+    String address;
+    boolean connectionOpen;
     double[] calibrationZero, calibrationOne;
     Thread commandListener;
-    static Object gate = new Object();
     boolean inited = false;
 
     boolean buttonAState, buttonBState, button1State, button2State, button_Z_state, button_C_state;
@@ -200,6 +195,14 @@ public class Wiimote
     }
 
     /**
+     * Returns which light is turned on on this wiimote
+     */
+    public int getLight()
+    {
+        return light;
+    }
+
+    /**
      * Turns on the given light on the wiimote. Lights are indexed from 0.
      */
     public void setLight(int i)
@@ -208,14 +211,6 @@ public class Wiimote
             return;
         light = i;
         sendCommand(COMMAND_LIGHT, new byte[]{(byte) Math.pow(2, 4 + i)});
-    }
-
-    /**
-     * Returns which light is turned on on this wiimote
-     */
-    public int getLight()
-    {
-        return light;
     }
 
     /**

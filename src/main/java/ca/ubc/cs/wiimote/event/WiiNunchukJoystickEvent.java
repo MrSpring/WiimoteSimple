@@ -1,6 +1,6 @@
-package ubc.cs.wiimote.event;
+package ca.ubc.cs.wiimote.event;
 
-import ubc.cs.wiimote.Wiimote;
+import ca.ubc.cs.wiimote.Wiimote;
 
 /**
  * Created on 20-12-2015 for WiimoteSimple.

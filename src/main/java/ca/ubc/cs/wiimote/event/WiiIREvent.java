@@ -17,9 +17,9 @@
     along with Wiimote Simple.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package ubc.cs.wiimote.event;
+package ca.ubc.cs.wiimote.event;
 
-import ubc.cs.wiimote.Wiimote;
+import ca.ubc.cs.wiimote.Wiimote;
 
 /**
  * Represents an IR event. These are only fired if an IR source has been detected by

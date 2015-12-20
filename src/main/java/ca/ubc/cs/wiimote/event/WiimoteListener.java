@@ -17,42 +17,25 @@
     along with Wiimote Simple.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package ubc.cs.wiimote.event;
-
-import ubc.cs.wiimote.Wiimote;
+package ca.ubc.cs.wiimote.event;
 
 /**
- * Represents a wii button event. Not that not all buttons have been implemented (only A, B, 1 and 2).
+ * Implement this and register with a Wiimote instance in order to receive updates from
+ * the wiimotes.
  */
-public class WiiButtonEvent extends WiiEvent
-{
-    public enum Button
-    {
-        B_A, B_B, B_1, B_2, B_C, B_Z
-    }
+public interface WiimoteListener {
+	
+	public void wiiButtonPress(WiiButtonEvent e);
 
-    protected Button button;
-    protected boolean pressedEvent;
+	public void wiiButtonRelease(WiiButtonEvent e);
 
-    public WiiButtonEvent(Wiimote w, Button b, boolean pE)
-    {
-        super(w);
-        button = b;
-        pressedEvent = pE;
-    }
+	///Is called to notify the listener of IR events. Is called continuously as long as at least one IR source is visible to the wiimote.
+	public void wiiIRInput(WiiIREvent e);
+	
+	///Is called to notify the listener of acceleration events. Is called continuously.
+	public void wiiAccelInput(WiiAccelerateEvent e);
 
-    public Button getButton()
-    {
-        return button;
-    }
-
-    public boolean getWasPress()
-    {
-        return pressedEvent;
-    }
-
-    public String toString()
-    {
-        return new String("WiiButtonEvent");
-    }
+	public void wiiNunchukAccelInput(WiiAccelerateEvent e);
+	
+	public void wiiNunchukJoystickInput(WiiNunchukJoystickEvent e);
 }

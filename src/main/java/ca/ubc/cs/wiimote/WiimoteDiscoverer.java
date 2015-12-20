@@ -17,7 +17,7 @@
     along with Wiimote Simple.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package ubc.cs.wiimote;
+package ca.ubc.cs.wiimote;
 
 import javax.bluetooth.*;
 import java.util.*;
@@ -55,6 +55,16 @@ public class WiimoteDiscoverer extends Thread implements DiscoveryListener{
 	}
 	
 	/**
+	 * Returns an instance of WiimoteDiscoverer. This is how you should get one for use.
+	 */
+	synchronized static public WiimoteDiscoverer getWiimoteDiscoverer() {
+		if (discoverer==null)
+			discoverer = new WiimoteDiscoverer();
+
+		return discoverer;
+	}
+	
+	/**
 	 * Adds a WiimoteDiscoveryListener to the list of listeners. This listener
 	 * will be notified whenver a Wiimote is discovered and connected to.
 	 */
@@ -68,16 +78,6 @@ public class WiimoteDiscoverer extends Thread implements DiscoveryListener{
 	 */
 	public void removeWiimoteDiscoveryListener(WiimoteDiscoveryListener l) {
 		listeners.remove(l);
-	}
-	
-	/**
-	 * Returns an instance of WiimoteDiscoverer. This is how you should get one for use.
-	 */
-	synchronized static public WiimoteDiscoverer getWiimoteDiscoverer() {
-		if (discoverer==null)
-			discoverer = new WiimoteDiscoverer();
-		
-		return discoverer;
 	}
 	
 	/**
